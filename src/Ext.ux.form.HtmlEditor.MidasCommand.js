@@ -29,6 +29,7 @@ Ext.override(Ext.form.HtmlEditor, {
             } else {
                 selDocFrag = this.win.getSelection().getRangeAt(0).cloneContents();
             }
+
             Ext.each(selDocFrag.childNodes, function(n){
                 if (n.nodeType !== 3) {
                     hasHTML = true;
@@ -41,6 +42,10 @@ Ext.override(Ext.form.HtmlEditor, {
                 txt = this.win.getSelection() + '';
             } else {
                 html = txt = selDocFrag.textContent;
+            }
+            if (clip) {
+                //selection range sticks around unless you collapse it.
+                sel.collapseToStart();
             }
             ret = {
                 textContent: txt,

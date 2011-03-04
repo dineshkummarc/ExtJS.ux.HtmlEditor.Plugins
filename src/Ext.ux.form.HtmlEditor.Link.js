@@ -73,6 +73,7 @@ Ext.ux.form.HtmlEditor.Link = Ext.extend(Ext.util.Observable, {
                         buttons: [{
                             text: this.langInsert,
                             handler: function(){
+                                //TODO: not having new idx's for the component could cause issues around multiple edit areas
                                 var frm = this.linkWindow.getComponent('insert-link').getForm();
                                 if (frm.isValid()) {
                                     var afterSpace = '', sel = this.cmp.getSelectedText(true), text = frm.findField('text').getValue(), url = frm.findField('url').getValue(), target = frm.findField('target').getValue();
@@ -83,9 +84,10 @@ Ext.ux.form.HtmlEditor.Link = Ext.extend(Ext.util.Observable, {
                                     if (sel.hasHTML) {
                                         text = sel.html;
                                     }
-                                    var html = '<a href="' + url + '" target="' + target + '">' + text + '</a>' + afterSpace;
+                                    var html = '<a href="' + url + '" target="' + target + '">' + text + '</a> ' + afterSpace;
                                     this.cmp.insertAtCursor(html);
-                                    this.linkWindow.hide();
+                                    this.linkWindow.close();
+                                    this.linkWindow = null;
                                 } else {
                                     if (!frm.findField('url').isValid()) {
                                         frm.findField('url').getEl().frame();
@@ -93,13 +95,13 @@ Ext.ux.form.HtmlEditor.Link = Ext.extend(Ext.util.Observable, {
                                         frm.findField('target').getEl().frame();
                                     }
                                 }
-                                
                             },
                             scope: this
                         }, {
                             text: this.langCancel,
                             handler: function(){
                                 this.linkWindow.close();
+                                this.linkWindow = null;
                             },
                             scope: this
                         }],
@@ -108,7 +110,7 @@ Ext.ux.form.HtmlEditor.Link = Ext.extend(Ext.util.Observable, {
                                 fn: function(){
                                     var frm = this.linkWindow.getComponent('insert-link').getForm();
                                     frm.findField('text').setValue(sel.textContent).setDisabled(sel.hasHTML);
-                                    frm.findField('url').reset().focus(true, 50);
+                                    frm.findField('url').focus(true, 50);
                                 },
                                 scope: this,
                                 defer: 350
