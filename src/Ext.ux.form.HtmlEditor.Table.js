@@ -44,14 +44,14 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
                     this.tableWindow = new Ext.Window({
                         title: this.langTitle,
                         closeAction: 'hide',
-                        width: 235,
+                        width: 335,
                         items: [{
                             itemId: 'insert-table',
                             xtype: 'form',
                             border: false,
                             plain: true,
                             bodyStyle: 'padding: 10px;',
-                            labelWidth: 65,
+                            labelWidth: 100,
                             labelAlign: 'right',
                             items: [{
                                 xtype: 'numberfield',
@@ -142,10 +142,7 @@ Ext.ux.form.HtmlEditor.Table = Ext.extend(Ext.util.Observable, {
                 this.tableWindow.show();
             },
             scope: this,
-            tooltip: {
-                title: this.langTitle
-            },
-            overflowText: this.langTitle
+            tooltip: this.langTitle
         });
     }
 });

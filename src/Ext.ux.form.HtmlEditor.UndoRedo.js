@@ -10,15 +10,9 @@ Ext.ux.form.HtmlEditor.UndoRedo = Ext.extend(Ext.ux.form.HtmlEditor.MidasCommand
     // private
     midasBtns: ['|', {
         cmd: 'undo',
-        tooltip: {
-            title: 'Undo'
-        },
-        overflowText: 'Undo'
+        tooltip: 'Undo'
     }, {
         cmd: 'redo',
-        tooltip: {
-            title: 'Redo'
-        },
-        overflowText: 'Redo'
+        tooltip: 'Redo'
     }]
 });

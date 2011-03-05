@@ -28,8 +28,8 @@ Ext.ux.form.HtmlEditor.Link = Ext.extend(Ext.util.Observable, {
                 if (!this.linkWindow) {
                     this.linkWindow = new Ext.Window({
                         title: this.langTitle,
-                        closeAction: 'hide',
                         width: 250,
+                        modal: true,
                         height: 160,
                         items: [{
                             xtype: 'form',
@@ -48,7 +48,7 @@ Ext.ux.form.HtmlEditor.Link = Ext.extend(Ext.util.Observable, {
                             }, {
                                 xtype: 'textfield',
                                 fieldLabel: this.langURL,
-                                vtype: 'url',
+                                /*vtype: 'url',*/
                                 name: 'url',
                                 anchor: '100%',
                                 value: 'http://'
@@ -106,6 +106,14 @@ Ext.ux.form.HtmlEditor.Link = Ext.extend(Ext.util.Observable, {
                             scope: this
                         }],
                         listeners: {
+                            close: {
+                                fn: function(){
+                                this.linkWindow.close();
+                                this.linkWindow = null;
+                                },
+                                scope: this,
+                                defer: 350
+                            },
                             show: {
                                 fn: function(){
                                     var frm = this.linkWindow.getComponent('insert-link').getForm();

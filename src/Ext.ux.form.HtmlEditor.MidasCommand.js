@@ -24,26 +24,28 @@ Ext.override(Ext.form.HtmlEditor, {
             if (!sel) {
                 sel = doc.getSelection();
             }
-            if (clip) {
-                selDocFrag = sel.getRangeAt(0).extractContents();
-            } else {
-                selDocFrag = this.win.getSelection().getRangeAt(0).cloneContents();
-            }
-
-            Ext.each(selDocFrag.childNodes, function(n){
-                if (n.nodeType !== 3) {
-                    hasHTML = true;
+            if (this.win.getSelection().rangeCount) {
+                if (clip) {
+                    selDocFrag = sel.getRangeAt(0).extractContents();
+                } else {
+                    selDocFrag = this.win.getSelection().getRangeAt(0).cloneContents();
                 }
-            });
-            if (hasHTML) {
-                var div = document.createElement('div');
-                div.appendChild(selDocFrag);
-                html = div.innerHTML;
-                txt = this.win.getSelection() + '';
-            } else {
-                html = txt = selDocFrag.textContent;
+
+                Ext.each(selDocFrag.childNodes, function(n){
+                    if (n.nodeType !== 3) {
+                        hasHTML = true;
+                    }
+                });
+                if (hasHTML) {
+                    var div = document.createElement('div');
+                    div.appendChild(selDocFrag);
+                    html = div.innerHTML;
+                    txt = this.win.getSelection() + '';
+                } else {
+                    html = txt = selDocFrag.textContent;
+                }
             }
-            if (clip) {
+            if (clip && sel && !(sel.isCollapsed)) {
                 //selection range sticks around unless you collapse it.
                 sel.collapseToStart();
             }
