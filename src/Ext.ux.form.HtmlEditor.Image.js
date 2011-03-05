@@ -17,8 +17,10 @@ Ext.ux.form.HtmlEditor.Image = Ext.extend(Ext.util.Observable, {
 	// Image language text
 	langTitle: 'Insert Image',
     urlSizeVars: ['width','height'],
-    basePath: 'image.php',
+    //basePath: 'image.php',
     init: function(cmp){
+        console.log('image');
+        console.log(cmp);
         this.cmp = cmp;
         this.cmp.on('render', this.onRender, this);
         this.cmp.on('initialize', this.onInit, this, {delay:100, single: true});
@@ -34,19 +36,17 @@ Ext.ux.form.HtmlEditor.Image = Ext.extend(Ext.util.Observable, {
     },
     onInit: function(){
         Ext.EventManager.on(this.cmp.getDoc(), {
-			'mouseup': this.onEditorMouseUp,
-			buffer: 100,
-			scope: this
-		});
+            'mouseup': this.onEditorMouseUp,
+            buffer: 100,
+            scope: this
+        });
     },
     onRender: function() {
         var btn = this.cmp.getToolbar().addButton({
             iconCls: 'x-edit-image',
             handler: this.selectImage,
             scope: this,
-            tooltip: {
-                title: this.langTitle
-            },
+            tooltip: this.langTitle,
             overflowText: this.langTitle
         });
     },
