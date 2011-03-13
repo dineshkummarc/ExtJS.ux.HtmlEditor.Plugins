@@ -37,7 +37,8 @@ Ext.ux.form.HtmlEditor.Image = Ext.extend(Ext.util.Observable, {
         });
     },
     onRender: function() {
-        var btn = this.cmp.getToolbar().addButton({
+        var tb = (this.cmp.getTopToolbar)?this.cmp.getTopToolbar():this.cmp.getToolbar();
+        var btn = tb.addButton({
             iconCls: 'x-edit-image',
             handler: this.selectImage,
             scope: this,
@@ -46,6 +47,6 @@ Ext.ux.form.HtmlEditor.Image = Ext.extend(Ext.util.Observable, {
     },
     selectImage: Ext.emptyFn,
     insertImage: function(img) {
-        this.cmp.insertAtCursor('<img src="'+img.url+'" title="'+img.name+'" alt="'+img.name+'">');
+        this.cmp.insertAtCursor('<img src="'+img.url+'" title="'+img.name+'" alt="'+img.name+'" />');
     }
 });
